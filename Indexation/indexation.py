@@ -6,63 +6,35 @@
 """
 
 import sys
-import hashlib
-
-def hashIndexWords(word):
-	"""
-	Computes the hash of the given word
-	"""
-	return hashlib.md5(word.encode())
-
-def extractWords(text):
-	"""
-	Extracts words of a text and suppress ponctuation
-	"""
-	res = []
-	for word in text.split() :
-		newWord = ""
-		for letter in word.lower() :
-			if letter in "abcdefghijklmnopqrstuvwxyz" :
-				newWord += letter
-		if newWord != "":
-			res.append(newWord)
-	return res
-
-def stemming(words):
-	"""
-	Stems words and delete meaningless words
-	"""
-	# TODO : Find a library which computes it
-	return words
+import json
+import Indexation.wordProcessing as wp
+import Indexation.synonymsProcessing as sp
 
 def indexation(nameFiles, indexDirectory):
 	"""
 	Indexes all the given files, contained in nameFiles, in the indexDirectory
 	"""
 	for name in nameFiles:
-		if not(os.path.exists(modelFileName)):
-			print(name + " does not exists")
-		else :
-			with open(name) as file:
-				dict = index(file.read())
-				save(dict, name + ".index")
+		with open(name) as file:
+			dict = index(file.read())
+			save(dict, indexDirectory + name + ".index")
 
 def index(text):
 	"""
-	Computes the index of the given text and return it as a dictionnary of words
+	Computes the index of the given text and return it as a dictionary of words
 	and frequency
 	"""
-	words = extractWords(text)
-	words = stemming(words)
+	words = wp.extractWords(text)
+	words = wp.stemming(words)
 	res = {}
 	for word in words:
-		hashWord = hashIndexWords(word)
 		try:
-			res[hashWord] += 1
+			res[word] += 1
 		except Exception as e:
-			res[hashWord] = 1
+			res[word] = 1
+	res = sp.merge(res)
 	return res
 
-def save(dictionnary, name):
+def save(dictionary, name):
 	with open(name, 'w') as dest:
-		dest.write(dictionnary)
+		dest.write(json.dumps(dictionary,sort_keys=True,indent=4, separators=(',', ': ')))
