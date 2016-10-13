@@ -11,7 +11,7 @@ import Indexation.indexation as index
 import Indexation.synonymsProcessing as synonyms
 
 def help():
-	print("searchEngine -indexation fileName*")
+	print("searchEngine (-indexation fileName* |-createSynonyms)")
 	quit()
 
 def main():

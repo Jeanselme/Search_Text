@@ -7,18 +7,26 @@
 
 import json
 import os
+import pickle
+import tkinter.ttk as ttk
 import urllib.request
 import urllib.parse
+from nltk.stem.lancaster import LancasterStemmer
 
-def getSynonyms(fileName) :
-	pass
+saveDictionarySynonyms = "Indexs/Synonyms.save"
 
-def merge(dictionary) :
+def getDictSynonyms(saveName):
 	"""
-	Merges the dictionary respecting different synonyms
+	Returns the dictionary of synonyms
 	"""
-	return dictionary
+	return pickle.load(open(saveDictionarySynonyms, 'rb'))
 
+def merge(stems, saveName = saveDictionarySynonyms):
+	synonyms = getDictSynonyms(saveName)
+	res = []
+	for stem in stems:
+		res.append(synonyms[stem])
+	return res
 
 # For the creation of the dictionary of synonyms
 class api :
@@ -67,13 +75,26 @@ def downloadDictionary(dictName, url=api.urlDictionary):
 			with open(dictName, 'w') as dict:
 				dict.write(response.read().decode('utf-8'))
 
-def createDictionarySynonyms(dictName, saveName):
+def createDictionarySynonyms(dictName, saveNameSynonyms, saveNameCompressed = saveDictionarySynonyms):
 	"""
 	Creates a file text with all the synonym of a word on each line
 	Initial dictionary have to content one word by line
 	"""
-	downloadDictionary(dictName)
-	with open(dictName, 'r') as dict:
-		with open(saveName, 'w') as syno:
-			for word in dict.read().split():
-				syno.write(str(downloadSynonyms(word)))
+	if not(os.path.exists(saveNameCompressed)):
+		downloadDictionary(dictName)
+		st = LancasterStemmer()
+		res = {}
+		with open(dictName, 'r') as dict:
+			with open(saveNameSynonyms, 'w') as syno:
+				words = dict.read().split()
+				i = 0
+				for word in words[:1000]:
+					print(str(i) + ' / ' + str(len(words)), end="\r")
+					synonyms = downloadSynonyms(word)
+					syno.write(str(synonyms))
+					res[st.stem(word)] = st.stem(synonyms[0])
+					i += 1
+		print(str(res))
+		pickle.dump(res, open(saveNameCompressed, 'wb'))
+	else:
+		print("Dictionary seems to already exist")
