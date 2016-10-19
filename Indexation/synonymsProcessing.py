@@ -8,7 +8,6 @@
 import json
 import os
 import pickle
-import tkinter.ttk as ttk
 import urllib.request
 import urllib.parse
 from nltk.stem.lancaster import LancasterStemmer
@@ -22,6 +21,9 @@ def getDictSynonyms(saveName):
 	return pickle.load(open(saveDictionarySynonyms, 'rb'))
 
 def merge(stems, saveName = saveDictionarySynonyms):
+	"""
+	Changes the different stems by their synonyms
+	"""
 	synonyms = getDictSynonyms(saveName)
 	res = []
 	for stem in stems:

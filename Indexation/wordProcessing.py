@@ -15,8 +15,13 @@ def extractWords(text):
 	for word in text.split() :
 		newWord = ""
 		for letter in word.lower() :
+			# Adds only letter
 			if letter in "abcdefghijklmnopqrstuvwxyz" :
 				newWord += letter
+			# If there is a special character, adds the word and creates a new one
+			elif newWord != "":
+				res.append(newWord)
+				newWord = ""
 		if newWord != "":
 			res.append(newWord)
 	return res
@@ -30,6 +35,7 @@ def stemming(words):
 	meaninglessWords = ["a", "an", "i", "its", "her", "him", "me", "our", "that",
 		"the", "there", "these", "them", "they", "this", "we", "you", "your"]
 	for word in words:
+		# Deletes meanindless words
 		if not(word in meaninglessWords):
 			result.append(st.stem(word))
 	return result
