@@ -46,10 +46,10 @@ def extractListDocs(text):
 	docs = text.rstrip('\n').split(':')[1][:-1]
 	docs = docs.split(';')
 	res = []
-	print(docs)
 	for doc in docs:
 		res.append(doc[1:doc.index(',')])
 	return res
+
 ## Write
 def writeReverseIndex(word, documentsList, occurencesList):
 	"""
@@ -57,7 +57,6 @@ def writeReverseIndex(word, documentsList, occurencesList):
 	word:(docId,Occurences);*\n
 	"""
 	res = word + ':'
-	print(documentsList)
 	for i in range(len(documentsList)):
 		res += '({},{});'.format(documentsList[i], occurencesList[i])
 	return res + '\n'

@@ -8,12 +8,6 @@
 import Indexation.formatIndex as fi
 import Indexation.indexation as index
 
-def extractDocument(line):
-	"""
-	Extracts the list of documents respecting the reverseIndex type
-	"""
-	return
-
 def search(query, indexDirectory, reverseIndex):
 	"""
 	Searchs the query in the dataBase
@@ -38,5 +32,5 @@ def search(query, indexDirectory, reverseIndex):
 
 	# TODO : Find a better way than returning the document that has the most commun
 	# words (take into account, the occurence in the query)
-	print("The closest doc has for id : {}".format(max(set(possibleDocs),
-		key=possibleDocs.count)))
+	print("The closest doc is " + index.enumerateIndexes(indexDirectory)[int(
+		max(set(possibleDocs),key=possibleDocs.count))])

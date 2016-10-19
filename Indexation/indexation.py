@@ -75,7 +75,9 @@ def createReverseIndex(indexDirectory, reverseIndex, force):
 	we look for specific word and see the associated documents.
 	word:(docId,occurences)* -> docId is dependent of the number of document !
 	"""
-	if not(os.path.exists(reverseIndex)) or force:
+	if force and os.path.exists(reverseIndex):
+		os.rename(reverseIndex, indexDirectory + "oldReverseIndex.backup")
+	if not(os.path.exists(reverseIndex)):
 		pointersFile = []
 		# To do not use all the memory we compute the reverse index by comparing
 		# the pointer on each document

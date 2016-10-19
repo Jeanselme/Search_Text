@@ -26,12 +26,12 @@ def main():
 				print(doc + " does not exists")
 			else :
 				fileNames.append(doc)
-		index.indexation(fileNames, "Indexs/", "Indexs/reverseIndex.index")
+		index.indexation(fileNames, "Indexs/", "Indexs/newReverseIndex.rev")
 	elif "-createSynonyms" in arg[1] and len(arg) == 2:
 		synonyms.createDictionarySynonyms("Dictionary/dict.txt",
 			"Dictionary/synonyms.txt")
 	elif "-search" in arg[1] and len(arg) == 3:
-		search.search(arg[2], "Indexs/", "Indexs/reverseIndex.index")
+		search.search(arg[2], "Indexs/", "Indexs/newReverseIndex.rev")
 	else:
 		help()
 
