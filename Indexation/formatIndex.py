@@ -47,7 +47,7 @@ def extractListDocs(text):
 	docs = docs.split(';')
 	res = []
 	for doc in docs:
-		res.append(doc[1:doc.index(',')])
+		res.append(int(doc[1:doc.index(',')]))
 	return res
 
 ## Write

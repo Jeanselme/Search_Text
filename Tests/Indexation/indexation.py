@@ -5,19 +5,14 @@
 	vincent.jeanselme@gmail.com
 """
 
+import sys, os
+# Needs to be execute from the project source
+sys.path.append(os.getcwd())
+
 import unittest
-from indexation import *
-from wordprocessing import *
+from Indexation.indexation import *
 
 class TestIndexation(unittest.TestCase):
-
-	def test_extractWords(self):
-		simple = "Once upon a time"
-		complex = "Once upon a time, in a far!"
-		ponctu = "Once upon a time , in a far !"
-		assert(len(extractWords(simple)) == 4)
-		assert(len(extractWords(complex)) == 7)
-		assert(len(extractWords(ponctu)) == 7)
 
 	def test_index(self):
 		simple = "Once upon a time"
