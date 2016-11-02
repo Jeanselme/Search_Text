@@ -1,6 +1,21 @@
 # Search_Engine
 A search engine through different text documents.
 
+## Getting started
+### Modules installation
+In order to install dependencies : 
+```
+    make init
+```
+This command needs 'sudo' permissions to install modules.
+
+### Tests
+In order to run unit tests : 
+```
+    make test
+```
+This command runs all tests found in Tests directory
+
 ## Indexation
 Currently, the algorithm indexes only text document by following the different steps :  
 - Extract words : Remove ponctuation and lower all the letter
