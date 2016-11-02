@@ -53,5 +53,11 @@ Tests/ contains unitary tests.
 Texts/ contains two example texts extracted from http://www.gutenberg.org.
 
 ## Libraries
-Needs json, os, pickle, urllib.request, urllib.parse and nltk.stem.lancaster.  
+#### Standard libraries:
+ - json
+ - os
+ - pickle
+ - urllib (request and parse)
+#### External libraries: 
+See **requirements.txt** for more details
 Executed with python3.5
