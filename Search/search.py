@@ -32,5 +32,9 @@ def search(query, indexDirectory, reverseIndex):
 
 	# TODO : Find a better way than returning the document that has the most commun
 	# words (take into account, the occurence in the query)
-	print("The closest doc is " + index.enumerateIndexes(indexDirectory)[
-		max(set(possibleDocs),key=possibleDocs.count)])
+	if possibleDocs != []:
+		indice = max(set(possibleDocs),key=possibleDocs.count)
+		res = index.enumerateIndexes(indexDirectory)[indice]
+		print("The closest doc is " + res)
+	else :
+		print("Any document contents your query")
